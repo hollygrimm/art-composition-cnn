@@ -5,6 +5,8 @@ from keras.preprocessing import image
 from base.base_data_loader import BaseDataLoader
 from keras.applications.imagenet_utils import preprocess_input
 
+# TODO: load images on the fly
+
 class WikiArtDataLoader(BaseDataLoader):
     def __init__(self, config):
         super(WikiArtDataLoader, self).__init__(config)
@@ -21,17 +23,16 @@ class WikiArtDataLoader(BaseDataLoader):
         test_labels = []    
 
         # train on only those rows that have attribute information
-        filtered = df.dropna(subset=[attributes[0]])
+        filtered = df.dropna(subset=[attributes[0]])  
 
-        for in_train, new_filename, variety_texture, variety_shape, variety_size, variety_color, variety, contrast, repetition in filtered.values:
-            attributes = {'variety_texture': variety_texture, 'variety_shape': variety_shape, 'variety_size': variety_size,
-                'variety_color': variety_color,
-                'variety': variety, 'contrast': contrast, 'repetition': repetition}
+        for row in filtered.itertuples(index=True, name='Pandas'):
+            in_train = getattr(row, "in_train")
+            new_filename = getattr(row, "new_filename")
 
             # normalize attribute values input: [1, 10]   output: [-1, 1]
             min_val = 1
             max_val = 10
-            norm_attrs = [(2 * ((v - min_val)/(max_val - min_val))) - 1 for k, v in attributes.items()]
+            norm_attrs = [(2 * ((getattr(row, attr_name) - min_val)/(max_val - min_val))) - 1 for attr_name in attributes]
 
             if in_train:
                 img_file_path = os.path.join('data/train', new_filename)
