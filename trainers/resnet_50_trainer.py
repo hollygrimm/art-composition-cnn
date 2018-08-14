@@ -1,7 +1,7 @@
 import os
-import numpy as np
 from keras.callbacks import ModelCheckpoint, TensorBoard
 from base.base_trainer import BaseTrain
+from trainers.wikiart_data_generator import WikiArtDataGenerator
 
 class ResNet50ModelTrainer(BaseTrain):
     def __init__(self, model, data, test_data, config, tensorboard_log_dir, checkpoint_dir):
@@ -39,39 +39,23 @@ class ResNet50ModelTrainer(BaseTrain):
 
         if hasattr(self.config,"comet_api_key"):
             from comet_ml import Experiment
-            experiment = Experiment(api_key=self.config.comet_api_key, project_name=self.config.exp_name)
+            experiment = Experiment(api_key=self.config['comet_api_key'], project_name=self.config['exp_name'])
             experiment.disable_mp()
             experiment.log_multiple_params(self.config)
-            self.callbacks.append(experiment.get_keras_callback())
-
-    def batch_generator(self, x, y, batch_size):
-        idx = 0
-        while True:
-            X_batch = x[idx:idx+batch_size]
-            Y_batch = y[idx:idx+batch_size]
-
-            # transpose y values to create list of numpy arrays by attribute
-            Y_batch_transposed = list(map(list, zip(*Y_batch)))
-
-            idx += batch_size
-
-            if idx == x.shape[0]:
-                idx = 0
-            elif idx > x.shape[0] - batch_size:
-                idx = x.shape[0] - batch_size
-
-            yield X_batch, [np.array(Y_batch_transposed[0]), np.array(Y_batch_transposed[1]), np.array(Y_batch_transposed[2]),
-                np.array(Y_batch_transposed[3]),
-                np.array(Y_batch_transposed[4]), np.array(Y_batch_transposed[5]), np.array(Y_batch_transposed[6])]            
+            self.callbacks.append(experiment.get_keras_callback())      
 
     def train(self):
+        train_datagen = WikiArtDataGenerator(img_filenames=self.data[0], labels=self.data[1], batch_size=self.config['batch_size'], target_size=(self.config['img_size'], self.config['img_size']))
+        val_datagen = WikiArtDataGenerator(img_filenames=self.test_data[0], labels=self.test_data[1], batch_size=self.config['batch_size'], target_size=(self.config['img_size'], self.config['img_size']))
+
         history = self.model.fit_generator(
-            self.batch_generator(self.data[0], self.data[1], batch_size = self.config['batch_size']),
+            train_datagen,
             steps_per_epoch = self.data[0].shape[0]/self.config['batch_size'],
             epochs = self.config['nb_epoch'],
             initial_epoch = self.config['initial_epoch'],
             verbose = self.config['verbose_training'],
-            validation_data = (self.test_data[0], self.test_data[1]),
+            validation_data = val_datagen,
+            validation_steps = 1,
             # TODO: Split training data into validation
             # validation_split=self.config['validation_split'],
             # TODO: Add LR Scheduler

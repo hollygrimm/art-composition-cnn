@@ -7,8 +7,6 @@ from keras.layers.merge import Concatenate
 from keras.models import Model
 from keras.optimizers import Adagrad
 
-# TODO: clean up
-
 class ResNet50AttrModel(BaseModel):
     def __init__(self, config):
         super(ResNet50AttrModel, self).__init__(config)
