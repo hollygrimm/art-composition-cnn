@@ -38,6 +38,8 @@ class WikiArtDataLoader(BaseDataLoader):
                 img_file_path = os.path.join('data/test', new_filename)
                 test_filenames.append(img_file_path)
                 test_labels.append(norm_attrs)
+        print("{} training examples".format(len(train_filenames)))
+        print("{} test examples".format(len(test_filenames)))
 
         self.X_train_filenames = np.array(train_filenames)
         self.y_train = train_labels

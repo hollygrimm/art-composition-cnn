@@ -1,5 +1,5 @@
 {
-    "exp_name": "256_1e-04_2",
+    "exp_name": "20_256_1e-04_2",
 
     "train_test_csv_file": "./data/all_domain.csv",
     "img_size": 256,
