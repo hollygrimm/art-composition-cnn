@@ -9,7 +9,7 @@
     "weights_path": null,
     "batch_size": 2, 
     "initial_epoch": 0,     
-    "nb_epoch": 20,
+    "nb_epoch": 100,
     "validation_split": 0.25,
     "verbose_training": 2,
     "loss_weights": {
@@ -17,7 +17,6 @@
         "variety_shape": 0.5,
         "variety_size": 0.5,
         "variety_color": 0.5,
-        "variety": 0.5,
         "contrast": 0.5,
         "repetition": 0.5
     }, 
