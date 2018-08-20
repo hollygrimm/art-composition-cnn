@@ -2,7 +2,7 @@
 from base.base_model import BaseModel
 import keras.backend as K
 from keras.applications.resnet50 import ResNet50
-from keras.layers import Lambda, GlobalAveragePooling2D, merge, Input, Dense
+from keras.layers import Lambda, GlobalAveragePooling2D, Input, Dense
 from keras.layers.merge import Concatenate
 from keras.models import Model
 from keras.optimizers import Adagrad
