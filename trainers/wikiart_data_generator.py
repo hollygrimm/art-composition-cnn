@@ -72,6 +72,4 @@ class WikiArtDataGenerator(Sequence):
 
         Y_batch_transposed = list(map(list, zip(*Y_batch)))
 
-        return X, [np.array(Y_batch_transposed[0]), np.array(Y_batch_transposed[1]), np.array(Y_batch_transposed[2]),
-                np.array(Y_batch_transposed[3]),
-                np.array(Y_batch_transposed[4]), np.array(Y_batch_transposed[5]), np.array(Y_batch_transposed[6])]  
+        return X, [np.array(Y_batch_transposed[i]) for i in range(len(Y_batch_transposed))]  
