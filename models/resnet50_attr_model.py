@@ -2,7 +2,8 @@
 from base.base_model import BaseModel
 import keras.backend as K
 from keras.applications.resnet50 import ResNet50
-from keras.layers import Lambda, GlobalAveragePooling2D, Input, Dense
+from keras.layers import Lambda, GlobalAveragePooling2D, Input, Dense, Reshape
+from keras.layers.embeddings import Embedding
 from keras.layers.merge import Concatenate
 from keras.models import Model
 from keras.optimizers import Adagrad
@@ -14,6 +15,7 @@ class ResNet50AttrModel(BaseModel):
         self.weights_path = config['weights_path']
         self.base_lr = config['base_lr']
         self.loss_weights = config['loss_weights']
+        self.categorical_attrs = config['categorical_attrs']
         self.build_model()
 
     def l2_normalize(self, x):
@@ -78,9 +80,23 @@ class ResNet50AttrModel(BaseModel):
         # create an output for each attribute
         outputs = []
 
-        attrs = [k for k in self.loss_weights]
+        attrs = [k for k in self.loss_weights if k not in self.categorical_attrs]
         for attr in attrs:
             outputs.append(Dense(1, kernel_initializer='glorot_uniform', activation='tanh', name=attr)(merged))
+
+        colors = 13 # color wheel plus black
+        outputs.append(Dense(colors, activation='softmax', name='pri_color')(merged))
+        # TODO: use embedding
+        # color_embedding_size = 10        
+        # color_embedding = Embedding(colors + 1, color_embedding_size, input_length = 1, name='pri_color_emb')(merged)
+        # outputs.append(Reshape(target_shape=(1, 1, color_embedding_size), name='pri_color')(color_embedding))
+
+        color_harmonies = 6
+        outputs.append(Dense(color_harmonies, activation='softmax', name='harmony')(merged))
+        # TODO: use embedding
+        # color_harmony_embedding_size = 10
+        # color_harmony_embedding = Embedding(color_harmonies + 1, color_harmony_embedding_size, input_length = 1, name='harmony_emb')(merged)
+        # outputs.append(Reshape(target_shape=(1, 1, color_harmony_embedding_size), name='harmony')(color_harmony_embedding))
 
         non_negative_attrs = []
         for attr in non_negative_attrs:
@@ -97,6 +113,10 @@ class ResNet50AttrModel(BaseModel):
         for attr in attrs:
             loss[attr] = 'mean_squared_error'
             metrics[attr] = 'mean_squared_error'
+
+        for attr in self.categorical_attrs:
+            loss[attr] = 'categorical_crossentropy'
+            metrics[attr] = 'categorical_crossentropy'
         
         self.model.compile(loss=loss, optimizer=adagrad, metrics=metrics,
                     loss_weights=self.loss_weights)

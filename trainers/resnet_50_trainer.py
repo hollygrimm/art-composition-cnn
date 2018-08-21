@@ -48,6 +48,8 @@ class ResNet50ModelTrainer(BaseTrain):
         train_datagen = WikiArtDataGenerator(img_filenames=self.data[0], labels=self.data[1], batch_size=self.config['batch_size'], target_size=(self.config['img_size'], self.config['img_size']))
         val_datagen = WikiArtDataGenerator(img_filenames=self.test_data[0], labels=self.test_data[1], batch_size=self.config['batch_size'], target_size=(self.config['img_size'], self.config['img_size']))
 
+        print(self.data[1])
+
         history = self.model.fit_generator(
             train_datagen,
             steps_per_epoch = self.data[0].shape[0]/self.config['batch_size'],

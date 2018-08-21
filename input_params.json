@@ -18,8 +18,14 @@
         "variety_size": 0.5,
         "variety_color": 0.5,
         "contrast": 0.5,
-        "repetition": 0.5
+        "repetition": 0.5,
+        "pri_color": 0.5,
+        "harmony": 0.5
     }, 
+    "categorical_attrs": {
+        "pri_color": 0.5,
+        "harmony": 0.5 
+    },
 
     "checkpoint_monitor": "val_loss",
     "checkpoint_mode": "min",
