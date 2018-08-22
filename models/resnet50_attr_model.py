@@ -14,8 +14,10 @@ class ResNet50AttrModel(BaseModel):
         self.img_size = config['img_size']
         self.weights_path = config['weights_path']
         self.base_lr = config['base_lr']
-        self.loss_weights = config['loss_weights']
-        self.categorical_attrs = config['categorical_attrs']
+        self.numerical_loss_weights = config['numerical_loss_weights']
+        self.categorical_loss_weights = config['categorical_loss_weights']
+        self.colors = config['colors']
+        self.harmonies = config['harmonies']
         self.build_model()
 
     def l2_normalize(self, x):
@@ -80,22 +82,20 @@ class ResNet50AttrModel(BaseModel):
         # create an output for each attribute
         outputs = []
 
-        attrs = [k for k in self.loss_weights if k not in self.categorical_attrs]
+        attrs = [k for k in self.numerical_loss_weights]
         for attr in attrs:
             outputs.append(Dense(1, kernel_initializer='glorot_uniform', activation='tanh', name=attr)(merged))
 
-        colors = 13 # color wheel plus black
-        outputs.append(Dense(colors, activation='softmax', name='pri_color')(merged))
+        outputs.append(Dense(len(self.colors), activation='softmax', name='pri_color')(merged))
         # TODO: use embedding
         # color_embedding_size = 10        
-        # color_embedding = Embedding(colors + 1, color_embedding_size, input_length = 1, name='pri_color_emb')(merged)
+        # color_embedding = Embedding(len(self.colors) + 1, color_embedding_size, input_length = 1, name='pri_color_emb')(merged)
         # outputs.append(Reshape(target_shape=(1, 1, color_embedding_size), name='pri_color')(color_embedding))
 
-        color_harmonies = 6
-        outputs.append(Dense(color_harmonies, activation='softmax', name='harmony')(merged))
+        outputs.append(Dense(len(self.harmonies), activation='softmax', name='harmony')(merged))
         # TODO: use embedding
         # color_harmony_embedding_size = 10
-        # color_harmony_embedding = Embedding(color_harmonies + 1, color_harmony_embedding_size, input_length = 1, name='harmony_emb')(merged)
+        # color_harmony_embedding = Embedding(len(self.harmonies) + 1, color_harmony_embedding_size, input_length = 1, name='harmony_emb')(merged)
         # outputs.append(Reshape(target_shape=(1, 1, color_harmony_embedding_size), name='harmony')(color_harmony_embedding))
 
         non_negative_attrs = []
@@ -114,9 +114,11 @@ class ResNet50AttrModel(BaseModel):
             loss[attr] = 'mean_squared_error'
             metrics[attr] = 'mean_squared_error'
 
-        for attr in self.categorical_attrs:
+        for attr in self.categorical_loss_weights:
             loss[attr] = 'categorical_crossentropy'
             metrics[attr] = 'categorical_crossentropy'
+
+        self.numerical_loss_weights.update(self.categorical_loss_weights)
         
         self.model.compile(loss=loss, optimizer=adagrad, metrics=metrics,
-                    loss_weights=self.loss_weights)
+                    loss_weights=self.numerical_loss_weights)

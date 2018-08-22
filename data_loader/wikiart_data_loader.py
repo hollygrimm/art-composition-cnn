@@ -11,9 +11,9 @@ class WikiArtDataLoader(BaseDataLoader):
 
         # read only the necessary columns from the CSV
         usecols = ['in_train', 'new_filename']
-        attributes = [k for k in config['loss_weights'] if k not in config['categorical_attrs']]
+        attributes = [k for k in config['numerical_loss_weights']]
         usecols.extend(attributes)
-        categorical_attributes = [k for k in config['categorical_attrs']]
+        categorical_attributes = [k for k in config['categorical_loss_weights']]
         usecols.extend(categorical_attributes)
         df = pd.read_csv(config['train_test_csv_file'], usecols=usecols)
 
@@ -27,13 +27,10 @@ class WikiArtDataLoader(BaseDataLoader):
 
         # create encoder from class values to integers
         self.color_encoder = LabelEncoder()
-        # FIXME pass custom list of colors
-        self.color_encoder.fit(filtered['pri_color'])
-        print(self.color_encoder.classes_)
+        self.color_encoder.fit(config['colors'])
 
         self.harmony_encoder = LabelEncoder()
-        # FIXME pass custom list of harmonies
-        self.harmony_encoder.fit(filtered['harmony'])            
+        self.harmony_encoder.fit(config['harmonies'])    
 
         for row in filtered.itertuples(index=True, name='Pandas'):
             in_train = getattr(row, "in_train")

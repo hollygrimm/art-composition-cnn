@@ -12,21 +12,41 @@
     "nb_epoch": 100,
     "validation_split": 0.25,
     "verbose_training": 2,
-    "loss_weights": {
+    "numerical_loss_weights": {
         "variety_texture": 0.5,
         "variety_shape": 0.5,
         "variety_size": 0.5,
         "variety_color": 0.5,
         "contrast": 0.5,
-        "repetition": 0.5,
-        "pri_color": 0.5,
-        "harmony": 0.5
+        "repetition": 0.5
     }, 
-    "categorical_attrs": {
+    "categorical_loss_weights": {
         "pri_color": 0.5,
         "harmony": 0.5 
     },
-
+    "colors": [
+        "black",
+        "red",
+        "orange",
+        "yellow",
+        "green-yellow",
+        "green",
+        "green-cyan",
+        "cyan",
+        "blue-cyan",
+        "blue",
+        "blue-magenta",
+        "magenta",
+        "red-magenta"
+    ],    
+    "harmonies": [
+        "split complementary",
+        "complementary",
+        "monochromatic",
+        "analogous",
+        "tetradic",
+        "triadic"
+    ],   
     "checkpoint_monitor": "val_loss",
     "checkpoint_mode": "min",
     "checkpoint_save_best_only": true,
