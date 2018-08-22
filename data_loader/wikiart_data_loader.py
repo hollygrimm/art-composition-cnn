@@ -17,11 +17,6 @@ class WikiArtDataLoader(BaseDataLoader):
         usecols.extend(categorical_attributes)
         df = pd.read_csv(config['train_test_csv_file'], usecols=usecols)
 
-        train_filenames = []
-        train_labels = []
-        test_filenames = []
-        test_labels = []    
-
         # train on only those rows that have attribute information
         filtered = df.dropna(subset=[attributes[0]])  
 
@@ -32,6 +27,8 @@ class WikiArtDataLoader(BaseDataLoader):
         self.harmony_encoder = LabelEncoder()
         self.harmony_encoder.fit(config['harmonies'])    
 
+        filenames = []
+        labels = []
         for row in filtered.itertuples(index=True, name='Pandas'):
             in_train = getattr(row, "in_train")
             new_filename = getattr(row, "new_filename")
@@ -48,26 +45,32 @@ class WikiArtDataLoader(BaseDataLoader):
 
             if in_train:
                 img_file_path = os.path.join('data/train', new_filename)
-                train_filenames.append(img_file_path)
-                train_labels.append(norm_attrs)
             else:
                 img_file_path = os.path.join('data/test', new_filename)
-                test_filenames.append(img_file_path)
-                test_labels.append(norm_attrs)
+            filenames.append(img_file_path)
+            labels.append(norm_attrs)
+
+        val_index = int(len(filenames) * (1 - config['validation_split']))
+
+        train_filenames = filenames[:val_index]
+        train_labels = labels[:val_index]  
+        val_filenames = filenames[val_index:]
+        val_labels = labels[val_index:]  
+
         print("{} training examples".format(len(train_filenames)))
-        print("{} test examples".format(len(test_filenames)))
+        print("{} validation examples".format(len(val_filenames)))
 
         self.X_train_filenames = np.array(train_filenames)
         self.y_train = train_labels
-        self.X_test_filenames = np.array(test_filenames)
-        self.y_test = test_labels
+        self.X_val_filenames = np.array(val_filenames)
+        self.y_val = val_labels
 
 
     def get_train_data(self):
         return self.X_train_filenames, self.y_train
 
-    def get_test_data(self):
-        return self.X_test_filenames, self.y_test
+    def get_val_data(self):
+        return self.X_val_filenames, self.y_val
 
 
 

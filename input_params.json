@@ -10,19 +10,19 @@
     "batch_size": 2, 
     "initial_epoch": 0,     
     "nb_epoch": 100,
-    "validation_split": 0.25,
+    "validation_split": 0.1,
     "verbose_training": 2,
     "numerical_loss_weights": {
-        "variety_texture": 0.5,
-        "variety_shape": 0.5,
-        "variety_size": 0.5,
-        "variety_color": 0.5,
-        "contrast": 0.5,
-        "repetition": 0.5
+        "variety_texture": 1.0,
+        "variety_shape": 1.0,
+        "variety_size": 1.0,
+        "variety_color": 1.0,
+        "contrast": 1.0,
+        "repetition": 1.0
     }, 
     "categorical_loss_weights": {
-        "pri_color": 0.5,
-        "harmony": 0.5 
+        "pri_color": 1.0,
+        "harmony": 1.0 
     },
     "colors": [
         "black",

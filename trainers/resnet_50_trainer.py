@@ -4,11 +4,11 @@ from base.base_trainer import BaseTrain
 from trainers.wikiart_data_generator import WikiArtDataGenerator
 
 class ResNet50ModelTrainer(BaseTrain):
-    def __init__(self, model, data, test_data, config, tensorboard_log_dir, checkpoint_dir):
+    def __init__(self, model, data, val_data, config, tensorboard_log_dir, checkpoint_dir):
         super(ResNet50ModelTrainer, self).__init__(model, data, config)
         self.tensorboard_log_dir = tensorboard_log_dir
         self.checkpoint_dir = checkpoint_dir   
-        self.test_data = test_data
+        self.val_data = val_data
         self.callbacks = []
         self.loss = []
         self.acc = []
@@ -46,7 +46,7 @@ class ResNet50ModelTrainer(BaseTrain):
 
     def train(self):
         train_datagen = WikiArtDataGenerator(img_filenames=self.data[0], labels=self.data[1], batch_size=self.config['batch_size'], target_size=(self.config['img_size'], self.config['img_size']))
-        val_datagen = WikiArtDataGenerator(img_filenames=self.test_data[0], labels=self.test_data[1], batch_size=self.config['batch_size'], target_size=(self.config['img_size'], self.config['img_size']))
+        val_datagen = WikiArtDataGenerator(img_filenames=self.val_data[0], labels=self.val_data[1], batch_size=self.config['batch_size'], target_size=(self.config['img_size'], self.config['img_size']))
 
         history = self.model.fit_generator(
             train_datagen,

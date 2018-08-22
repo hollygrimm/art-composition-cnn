@@ -27,7 +27,7 @@ def main():
     print('model ready loading data now')
 
     print('Create the trainer')
-    trainer = ResNet50ModelTrainer(model.model, data_loader.get_train_data(), data_loader.get_test_data(), config, log_dir, checkpoint_dir)
+    trainer = ResNet50ModelTrainer(model.model, data_loader.get_train_data(), data_loader.get_val_data(), config, log_dir, checkpoint_dir)
 
     print('Start training the model.')
     trainer.train()
