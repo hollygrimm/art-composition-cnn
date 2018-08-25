@@ -13,3 +13,9 @@ https://github.com/jacobgil/keras-dcgan/issues/23
 ```
 python main.py -c input_params.json
 ```
+
+## Run Tests
+```
+cd tests
+python art_composition_cnn_tests.py
+``
