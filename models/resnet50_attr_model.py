@@ -118,7 +118,8 @@ class ResNet50AttrModel(BaseModel):
             loss[attr] = 'categorical_crossentropy'
             metrics[attr] = 'categorical_crossentropy'
 
-        self.numerical_loss_weights.update(self.categorical_loss_weights)
+        loss_weights = dict(self.numerical_loss_weights)
+        loss_weights.update(self.categorical_loss_weights)
         
         self.model.compile(loss=loss, optimizer=adagrad, metrics=metrics,
-                    loss_weights=self.numerical_loss_weights)
+                    loss_weights=loss_weights)
