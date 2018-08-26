@@ -32,5 +32,29 @@ def main():
     print('Start training the model.')
     trainer.train()
 
+def infer():
+    # get json configuration filepath from the run argument
+    # process the json configuration file
+    try:
+        config = 'input_params_for_inference.json'
+        config, _, _ = process_config(config)
+    except:
+        print('missing or invalid arguments')
+        print('Unexpected error:', sys.exc_info()[0])
+
+    print('Create the data generator')
+    data_loader = WikiArtDataLoader(config)
+
+    print('Create the model')
+    model = ResNet50AttrModel(config)
+    print('model ready loading data now')
+
+    print('Create the trainer')
+    trainer = ResNet50ModelTrainer(model.model, data_loader.get_train_data(), data_loader.get_val_data(), config, '', '')
+
+    print('Infer.')
+    trainer.predict()
+
+
 if __name__ == '__main__':
     main()

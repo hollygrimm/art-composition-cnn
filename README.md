@@ -14,6 +14,13 @@ https://github.com/jacobgil/keras-dcgan/issues/23
 python main.py -c input_params.json
 ```
 
+## Run Inference on Validation Samples
+```
+python
+import main
+main.infer()
+```
+
 ## Run Tests
 ```
 cd tests

@@ -1,15 +1,15 @@
 {
-    "exp_name": "300_256_1e-04_2_.3catweights",
+    "exp_name": "300_256_1e-04_2_.3catweights_infer",
 
     "train_test_csv_file": "./data/all_domain.csv",
     "img_size": 256,
 
     "base_lr": 1e-04, 
 
-    "weights_path": null,
-    "batch_size": 2, 
+    "weights_path": "experiments/2018-08-25/300_256_1e-04_2_.3catweights/checkpoints/300_256_1e-04_2_.3catweights-28-1.09.hdf5",
+    "batch_size": 1, 
     "initial_epoch": 0,     
-    "nb_epoch": 300,
+    "nb_epoch": 1,
     "validation_split": 0.1,
     "verbose_training": 2,
     "numerical_loss_weights": {
@@ -33,7 +33,7 @@
         "green",
         "green-cyan",
         "green-yellow",
-        "magenta",
+        "magenta",        
         "orange",
         "red",        
         "red-magenta",
