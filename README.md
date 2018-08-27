@@ -25,4 +25,4 @@ main.infer()
 ```
 cd tests
 python art_composition_cnn_tests.py
-``
+```
