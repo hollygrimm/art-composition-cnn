@@ -6,7 +6,7 @@
 
     "base_lr": 1e-04, 
 
-    "weights_path": "experiments/2018-08-25/300_256_1e-04_2_.3catweights/checkpoints/300_256_1e-04_2_.3catweights-28-1.09.hdf5",
+    "weights_path": "experiments/2018-08-27/1000_256_1e-04_2_.7catweights/checkpoints/1000_256_1e-04_2_.7catweights-968-1.69.hdf5",
     "batch_size": 1, 
     "initial_epoch": 0,     
     "nb_epoch": 1,
