@@ -7,7 +7,7 @@
     "base_lr": 1e-04, 
 
     "weights_path": null,
-    "batch_size": 2, 
+    "batch_size": 1, 
     "initial_epoch": 0,     
     "nb_epoch": 300,
     "validation_split": 0.1,
