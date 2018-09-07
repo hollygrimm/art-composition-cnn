@@ -1,6 +1,6 @@
 # ResNet50 on Art Composition Attributes
 
-Please read the accompanying blog post: [https://hollygrimm.com/acan](https://hollygrimm.com/acan)
+Please read the accompanying blog post: [https://hollygrimm.com/acan_final](https://hollygrimm.com/acan_final)
 
 ## Requirements
 Keras version 2.1.2
