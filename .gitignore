@@ -1,4 +1,3 @@
-data/all_domain.csv
 data/train
 data/test
 __pycache__
