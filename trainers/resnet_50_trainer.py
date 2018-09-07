@@ -85,8 +85,8 @@ class ResNet50ModelTrainer(BaseTrain):
             print(self.val_data[0][i])
 
             len_numerical_attributes = len(self.config['numerical_loss_weights'])
-            for j, attr in enumerate(self.config['numerical_loss_weights']):
-                print('{0}: {1} pred: {2:0.1f}'.format(attr, self.denormalize_attr(self.val_data[1][i][j]), self.denormalize_attr(Y_pred[j][i][0])))
+            for j, attr in enumerate(self.config['numerical_loss_weights'].keys()):
+                print('{0}: {1} pred: {2:0.1f}'.format(attr, self.denormalize_attr(self.val_data[1][i][j]), self.denormalize_attr(Y_pred[j][i][0][0])))
             
             print('{0}: {1} pred: {2}'.format(list(self.config['categorical_loss_weights'])[0], self.config['colors'][np.argmax(self.val_data[1][i][len_numerical_attributes])], self.config['colors'][np.argmax(Y_pred[len_numerical_attributes][i])]))
             print('{0}: {1} pred: {2}\n'.format(list(self.config['categorical_loss_weights'])[1], self.config['harmonies'][np.argmax(self.val_data[1][i][1 + len_numerical_attributes])], self.config['harmonies'][np.argmax(Y_pred[1 + len_numerical_attributes][i])]))
