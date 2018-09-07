@@ -1,5 +1,5 @@
 {
-    "exp_name": "300_256_1e-04_2_.3catweights_infer",
+    "exp_name": "1000_256_1e-04_2_.7catweights_infer",
 
     "train_test_csv_file": "./data/all_domain.csv",
     "img_size": 256,
@@ -21,8 +21,8 @@
         "repetition": 1.0
     }, 
     "categorical_loss_weights": {
-        "pri_color": 0.3,
-        "harmony": 0.3 
+        "pri_color": 0.7,
+        "harmony": 0.7 
     },
     "colors": [
         "black",
