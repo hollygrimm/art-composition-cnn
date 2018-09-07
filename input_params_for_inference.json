@@ -1,5 +1,5 @@
 {
-    "exp_name": "1000_256_1e-04_2_.7catweights_infer",
+    "exp_name": "1000_256_1e-04_1_.7catweights_infer",
 
     "train_test_csv_file": "./data/all_domain.csv",
     "img_size": 256,
