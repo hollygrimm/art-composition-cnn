@@ -24,7 +24,7 @@ rm -rf train.tgz
 
 cd ~
 source activate tensorflow_p36
-pip install keras==2.1.2
+pip install keras
 pip install scikit-learn
 pip install pillow
 source deactivate

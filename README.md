@@ -6,15 +6,9 @@ Used with [https://github.com/hollygrimm/cyclegan-keras-art-attrs](https://githu
 Please read the accompanying blog post: [https://hollygrimm.com/acan_final](https://hollygrimm.com/acan_final)
 
 ## Requirements
-* keras version 2.1.2
+* keras
 * scikit-learn
 * pillow
-
-Keras 2.1.6 errors out with:
-```
-'int' object has no attribute 'ndim'
-```
-https://github.com/jacobgil/keras-dcgan/issues/23
 
 ## AWS Install
 * Select Deep Learning AMI (Ubuntu) Version 13.0
