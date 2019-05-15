@@ -18,6 +18,7 @@ class ResNet50AttrModel(BaseModel):
         self.categorical_loss_weights = config['categorical_loss_weights']
         self.colors = config['colors']
         self.harmonies = config['harmonies']
+        self.styles = config['styles']
         self.build_model()
 
     def l2_normalize(self, x):
@@ -97,6 +98,8 @@ class ResNet50AttrModel(BaseModel):
         # color_harmony_embedding_size = 10
         # color_harmony_embedding = Embedding(len(self.harmonies) + 1, color_harmony_embedding_size, input_length = 1, name='harmony_emb')(merged)
         # outputs.append(Reshape(target_shape=(1, 1, color_harmony_embedding_size), name='harmony')(color_harmony_embedding))
+
+        outputs.append(Dense(len(self.styles), activation='softmax', name='style')(merged))
 
         non_negative_attrs = []
         for attr in non_negative_attrs:
