@@ -44,6 +44,13 @@ cd art-composition-cnn/
 python main.py -c input_params.json
 ```
 
+# Tensorboard
+```
+source activate tensorflow_p36
+cd art-composition-cnn/experiments/
+tensorboard --logdir=.
+```
+
 ## Run Inference on Validation Samples
 Update weights_path with selected hdf5 from training:
 ```
