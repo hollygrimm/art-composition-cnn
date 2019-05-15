@@ -123,7 +123,7 @@
     ],
     "checkpoint_monitor": "val_loss",
     "checkpoint_mode": "min",
-    "checkpoint_save_best_only": true,
+    "checkpoint_save_best_only": false,
     "checkpoint_save_weights_only": false,
     "checkpoint_verbose": 1,
     "tensorboard_write_graph": true
