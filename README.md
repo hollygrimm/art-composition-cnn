@@ -41,6 +41,7 @@ Example attribute data has been supplied for four examples in [all_domain.csv](d
 - `base_lr`: float learning rate default is 1e-04
 - `optimizer`: either `adam` or `adagrad`
 - `batch_size`: integer batch size appropriate for your GPU size 
+    - 30 for 8GB GPU
 - `nb_epoch`: integer number of epochs
 - `validation_split`: float split training and validation set
 
