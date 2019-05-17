@@ -36,6 +36,13 @@ tar -xvf train.tgz
 ## Label Data with Attributes
 Example attribute data has been supplied for four examples in [all_domain.csv](data/all_domain.csv). For best results, modify all_domain.csv and label more images with attributes.
 
+## input_params.json Configuration
+
+- `base_lr`: float learning rate default is 1e-04
+- `optimizer`: either `adam` or `adagrad`
+- `batch_size`: integer batch size appropriate for your GPU size 
+- `nb_epoch`: integer number of epochs
+- `validation_split`: float split training and validation set
 
 ## Run Training
 ```
@@ -44,7 +51,7 @@ cd art-composition-cnn/
 python main.py -c input_params.json
 ```
 
-# Tensorboard
+## Tensorboard
 ```
 source activate tensorflow_p36
 cd art-composition-cnn/experiments/
