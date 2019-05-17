@@ -8,7 +8,7 @@
     "optimizer": "adam",
 
     "weights_path": null,
-    "batch_size": 1, 
+    "batch_size": 50, 
     "initial_epoch": 0,     
     "nb_epoch": 1000,
     "validation_split": 0.1,
@@ -124,7 +124,7 @@
     ],
     "checkpoint_monitor": "val_loss",
     "checkpoint_mode": "min",
-    "checkpoint_save_best_only": false,
+    "checkpoint_save_best_only": true,
     "checkpoint_save_weights_only": false,
     "checkpoint_verbose": 1,
     "tensorboard_write_graph": true
