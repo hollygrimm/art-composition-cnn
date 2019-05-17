@@ -1,10 +1,11 @@
 {
-    "exp_name": "1000_256_1e-04_1_.7catweights_infer",
+    "exp_name": "1000_256_1e-04_adam_1_.7catweights_infer",
 
     "train_test_csv_file": "./data/all_domain.csv",
     "img_size": 256,
 
     "base_lr": 1e-04, 
+    "optimizer": "adam",
 
     "weights_path": "experiments/2018-08-27/1000_256_1e-04_2_.7catweights/checkpoints/1000_256_1e-04_2_.7catweights-968-1.69.hdf5",
     "batch_size": 1, 

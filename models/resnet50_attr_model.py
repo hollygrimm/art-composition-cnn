@@ -7,6 +7,7 @@ from keras.layers.embeddings import Embedding
 from keras.layers.merge import Concatenate
 from keras.models import Model
 from keras.optimizers import Adagrad
+from keras.optimizers import Adam
 
 class ResNet50AttrModel(BaseModel):
     def __init__(self, config):
@@ -14,6 +15,7 @@ class ResNet50AttrModel(BaseModel):
         self.img_size = config['img_size']
         self.weights_path = config['weights_path']
         self.base_lr = config['base_lr']
+        self.optimizer = config['optimizer']        
         self.numerical_loss_weights = config['numerical_loss_weights']
         self.categorical_loss_weights = config['categorical_loss_weights']
         self.colors = config['colors']
@@ -109,7 +111,12 @@ class ResNet50AttrModel(BaseModel):
         if self.weights_path:
             self.model.load_weights(self.weights_path)
 
-        adagrad = Adagrad(lr=self.base_lr)
+        # TODO: Add weight Decay
+        if self.optimizer == 'adagrad':
+            optimizer = Adagrad(lr=self.base_lr)
+        elif self.optimizer == 'adam':
+            optimizer = Adam(lr=self.base_lr, beta_1=0.9, beta_2=0.999, epsilon=0.00000001, amsgrad=True)
+            
         loss = {}
         metrics = {}
 
@@ -124,5 +131,5 @@ class ResNet50AttrModel(BaseModel):
         loss_weights = dict(self.numerical_loss_weights)
         loss_weights.update(self.categorical_loss_weights)
         
-        self.model.compile(loss=loss, optimizer=adagrad, metrics=metrics,
+        self.model.compile(loss=loss, optimizer=optimizer, metrics=metrics,
                     loss_weights=loss_weights)
