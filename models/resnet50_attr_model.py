@@ -89,11 +89,8 @@ class ResNet50AttrModel(BaseModel):
         for attr in attrs:
             outputs.append(Dense(1, kernel_initializer='glorot_uniform', activation='tanh', name=attr)(merged))
 
-        outputs.append(Dense(len(self.colors), activation='softmax', name='pri_color')(merged))
-        # TODO: use embedding
-        # color_embedding_size = 10        
-        # color_embedding = Embedding(len(self.colors) + 1, color_embedding_size, input_length = 1, name='pri_color_emb')(merged)
-        # outputs.append(Reshape(target_shape=(1, 1, color_embedding_size), name='pri_color')(color_embedding))
+        # output length of encoded color, 3 values cyan-magenta-yellow
+        outputs.append(Dense(len(self.colors['blue']), activation='sigmoid', name='pri_color')(merged))
 
         outputs.append(Dense(len(self.harmonies), activation='softmax', name='harmony')(merged))
         # TODO: use embedding
@@ -125,8 +122,13 @@ class ResNet50AttrModel(BaseModel):
             metrics[attr] = 'mean_squared_error'
 
         for attr in self.categorical_loss_weights:
-            loss[attr] = 'categorical_crossentropy'
-            metrics[attr] = 'categorical_crossentropy'
+            # use mean_squared_error for loss color encoded by three values, cyan-magenta-yellow
+            if attr == 'pri_color':
+                loss[attr] = 'mean_squared_error'
+                metrics[attr] = 'mean_squared_error'
+            else:
+                loss[attr] = 'categorical_crossentropy'
+                metrics[attr] = 'categorical_crossentropy'
 
         loss_weights = dict(self.numerical_loss_weights)
         loss_weights.update(self.categorical_loss_weights)

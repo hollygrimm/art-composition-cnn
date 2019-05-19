@@ -20,9 +20,7 @@ class WikiArtDataLoader(BaseDataLoader):
         # train on only those rows that have attribute information
         filtered = df.dropna(subset=[attributes[0]])  
 
-        # create encoder from class values to integers
-        self.color_encoder = LabelEncoder()
-        self.color_encoder.fit(config['colors'])
+        self.colors_cmy = config['colors']
 
         self.harmony_encoder = LabelEncoder()
         self.harmony_encoder.fit(config['harmonies'])    
@@ -41,8 +39,7 @@ class WikiArtDataLoader(BaseDataLoader):
             max_val = 10
             norm_attrs = [(2 * ((getattr(row, attr_name) - min_val)/(max_val - min_val))) - 1 for attr_name in attributes]
 
-            color = self.color_encoder.transform([getattr(row, 'pri_color')])
-            norm_attrs.extend(to_categorical(color, num_classes=len(self.color_encoder.classes_)))
+            norm_attrs.extend([self.colors_cmy[getattr(row, 'pri_color')]])
             harmony = self.harmony_encoder.transform([getattr(row, 'harmony')])
             norm_attrs.extend(to_categorical(harmony, num_classes=len(self.harmony_encoder.classes_)))
             style = self.style_encoder.transform([getattr(row, 'style')])
@@ -68,8 +65,8 @@ class WikiArtDataLoader(BaseDataLoader):
         self.X_train_filenames = np.array(train_filenames)
         self.y_train = train_labels
         self.X_val_filenames = np.array(val_filenames)
-        self.y_val = val_labels
-
+        self.y_val = val_labels     
+  
 
     def get_train_data(self):
         return self.X_train_filenames, self.y_train

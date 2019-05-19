@@ -12,7 +12,7 @@ class TestArtCompositionCNN(unittest.TestCase):
     def test_encoders(self):
         config, _, _ = process_config('../input_params.json')
         color_encoder = LabelEncoder()
-        color_encoder.fit(config['colors'])
+        color_encoder.fit(list(config['colors'].keys()))
 
         harmony_encoder = LabelEncoder()
         harmony_encoder.fit(config['harmonies'])   
@@ -47,6 +47,12 @@ class TestArtCompositionCNN(unittest.TestCase):
         harmony_onehot = to_categorical(harmony_enc, num_classes=len(harmony_encoder.classes_))
         self.assertListEqual(harmony_onehot.tolist(), [[0, 0, 0, 0, 0, 1]])        
         
+    def test_color_encoder(self):
+        config, _, _ = process_config('../input_params.json')
+        colors_cmy = config['colors']
+        color = 'blue'
+        self.assertListEqual(colors_cmy[color], [100, 100, 0])
+
 
 if __name__ == '__main__':
     unittest.main()

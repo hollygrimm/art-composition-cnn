@@ -26,21 +26,21 @@
         "harmony": 0.7,
         "style": 0.7
     },
-    "colors": [
-        "black",
-        "blue",
-        "blue-cyan",        
-        "blue-magenta",
-        "cyan",
-        "green",
-        "green-cyan",
-        "green-yellow",
-        "magenta",
-        "orange",
-        "red",        
-        "red-magenta",
-        "yellow"    
-    ],    
+    "colors": {
+        "black": [100, 100, 100],   
+        "blue": [100, 100, 0],
+        "blue-cyan": [100, 50, 0],            
+        "blue-magenta": [50, 100, 0],
+        "cyan": [100, 0, 0],
+        "green": [100, 0, 100],            
+        "green-cyan": [100, 0, 50],
+        "green-yellow": [50, 0, 100],
+        "magenta": [0, 100, 0],
+        "orange": [0, 50, 100],            
+        "red": [0, 100, 100],
+        "red-magenta": [0, 100, 50],                     
+        "yellow": [0, 0, 100]
+    },    
     "harmonies": [
         "analogous",
         "complementary",        
