@@ -1,5 +1,5 @@
 {
-    "exp_name": "1000_256_1e-04_adam_1_.7catweights_infer",
+    "exp_name": "2000_256_1e-04_adam_30_.7catweights_infer",
 
     "train_test_csv_file": "./data/all_domain.csv",
     "img_size": 256,
@@ -7,7 +7,7 @@
     "base_lr": 1e-04, 
     "optimizer": "adam",
 
-    "weights_path": "experiments/2018-08-27/1000_256_1e-04_2_.7catweights/checkpoints/1000_256_1e-04_2_.7catweights-968-1.69.hdf5",
+    "weights_path": "experiments/2019-05-20/2000_256_1e-04_adam_30_.7catweights/checkpoints/2000_256_1e-04_adam_30_.7catweights-1910-4.73.hdf5",
     "batch_size": 1, 
     "initial_epoch": 0,     
     "nb_epoch": 1,
@@ -26,21 +26,21 @@
         "harmony": 0.7,
         "style": 0.7 
     },
-    "colors": [
-        "black",
-        "blue",
-        "blue-cyan",        
-        "blue-magenta",
-        "cyan",
-        "green",
-        "green-cyan",
-        "green-yellow",
-        "magenta",        
-        "orange",
-        "red",        
-        "red-magenta",
-        "yellow"    
-    ],    
+    "colors": {
+        "black": [0, 0, 0],   
+        "blue": [240, 1, 1],
+        "blue-cyan": [210, 1, 1],            
+        "blue-magenta": [270, 1, 1],
+        "cyan": [180, 1, 1],
+        "green": [120, 1, 1],            
+        "green-cyan": [150, 1, 1],
+        "green-yellow": [90, 1, 1],
+        "magenta": [300, 1, 1],
+        "orange": [30, 1, 1],            
+        "red": [0, 1, 1],
+        "red-magenta": [330, 1, 1],                     
+        "yellow": [60, 1, 1]
+    },    
     "harmonies": [
         "analogous",
         "complementary",        
