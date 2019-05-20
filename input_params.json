@@ -1,5 +1,5 @@
 {
-    "exp_name": "1000_256_1e-04_adam_30_.7catweights",
+    "exp_name": "2000_256_1e-04_adam_30_.7catweights",
 
     "train_test_csv_file": "./data/all_domain.csv",
     "img_size": 256,
@@ -10,7 +10,7 @@
     "weights_path": null,
     "batch_size": 30, 
     "initial_epoch": 0,     
-    "nb_epoch": 1000,
+    "nb_epoch": 2000,
     "validation_split": 0.1,
     "verbose_training": 2,
     "numerical_loss_weights": {
@@ -27,19 +27,19 @@
         "style": 0.7
     },
     "colors": {
-        "black": [1, 1, 1],   
-        "blue": [1, 1, -1],
-        "blue-cyan": [1, 0, -1],            
-        "blue-magenta": [0, 1, -1],
-        "cyan": [1, -1, -1],
-        "green": [1, -1, 1],            
-        "green-cyan": [1, -1, 0],
-        "green-yellow": [0, -1, 1],
-        "magenta": [-1, 1, -1],
-        "orange": [-1, 0, 1],            
-        "red": [-1, 1, 1],
-        "red-magenta": [-1, 1, 0],                     
-        "yellow": [-1, -1, 1]
+        "black": [0, 0, 0],   
+        "blue": [240, 1, 1],
+        "blue-cyan": [210, 1, 1],            
+        "blue-magenta": [270, 1, 1],
+        "cyan": [180, 1, 1],
+        "green": [120, 1, 1],            
+        "green-cyan": [150, 1, 1],
+        "green-yellow": [90, 1, 1],
+        "magenta": [300, 1, 1],
+        "orange": [30, 1, 1],            
+        "red": [0, 1, 1],
+        "red-magenta": [330, 1, 1],                     
+        "yellow": [60, 1, 1]
     },    
     "harmonies": [
         "analogous",
