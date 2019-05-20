@@ -89,8 +89,8 @@ class ResNet50AttrModel(BaseModel):
         for attr in attrs:
             outputs.append(Dense(1, kernel_initializer='glorot_uniform', activation='tanh', name=attr)(merged))
 
-        # output length of encoded color, 3 values cyan-magenta-yellow
-        outputs.append(Dense(len(self.colors['blue']), activation='sigmoid', name='pri_color')(merged))
+        # output length of encoded color, 4 values: sin(hue), cos(hue), saturation, value
+        outputs.append(Dense(4, activation='sigmoid', name='pri_color')(merged))
 
         outputs.append(Dense(len(self.harmonies), activation='softmax', name='harmony')(merged))
         # TODO: use embedding
