@@ -20,7 +20,7 @@ class WikiArtDataLoader(BaseDataLoader):
         # train on only those rows that have attribute information
         filtered = df.dropna(subset=[attributes[0]])  
 
-        self.colors_cmy = config['colors']
+        self.colors_hsv = config['colors']
 
         self.harmony_encoder = LabelEncoder()
         self.harmony_encoder.fit(config['harmonies'])    
@@ -39,7 +39,10 @@ class WikiArtDataLoader(BaseDataLoader):
             max_val = 10
             norm_attrs = [(2 * ((getattr(row, attr_name) - min_val)/(max_val - min_val))) - 1 for attr_name in attributes]
 
-            norm_attrs.extend([self.colors_cmy[getattr(row, 'pri_color')]])
+            color = getattr(row, 'pri_color')
+            hues = 360
+            print("{} {} {} {}".format(np.sin(2*np.pi*self.colors_hsv[color][0]/hues), np.cos(2*np.pi*self.colors_hsv[color][0]/hues), self.colors_hsv[color][1], self.colors_hsv[color][2]))
+            norm_attrs.extend([[np.sin(2*np.pi*self.colors_hsv[color][0]/hues), np.cos(2*np.pi*self.colors_hsv[color][0]/hues), self.colors_hsv[color][1], self.colors_hsv[color][2]]])
             harmony = self.harmony_encoder.transform([getattr(row, 'harmony')])
             norm_attrs.extend(to_categorical(harmony, num_classes=len(self.harmony_encoder.classes_)))
             style = self.style_encoder.transform([getattr(row, 'style')])
