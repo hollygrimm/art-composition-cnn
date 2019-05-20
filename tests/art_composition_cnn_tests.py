@@ -1,5 +1,6 @@
 import sys
 import unittest
+import numpy as np
 from sklearn.preprocessing import LabelEncoder
 from keras.utils import to_categorical
 
@@ -49,9 +50,11 @@ class TestArtCompositionCNN(unittest.TestCase):
         
     def test_color_encoder(self):
         config, _, _ = process_config('../input_params.json')
-        colors_cmy = config['colors']
+        colors_hsv = config['colors']
         color = 'blue'
-        self.assertListEqual(colors_cmy[color], [100, 100, 0])
+        self.assertAlmostEqual(np.sin(2*np.pi*colors_hsv[color][0]/360), -0.8660254037844384)
+        self.assertAlmostEqual(np.cos(2*np.pi*colors_hsv[color][0]/360), -0.5000000000000004)
+        self.assertListEqual(colors_hsv[color], [240, 1, 1])
 
 
 if __name__ == '__main__':
