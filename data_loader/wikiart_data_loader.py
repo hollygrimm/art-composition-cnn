@@ -41,7 +41,6 @@ class WikiArtDataLoader(BaseDataLoader):
 
             color = getattr(row, 'pri_color')
             hues = 360
-            print("{} {} {} {}".format(np.sin(2*np.pi*self.colors_hsv[color][0]/hues), np.cos(2*np.pi*self.colors_hsv[color][0]/hues), self.colors_hsv[color][1], self.colors_hsv[color][2]))
             norm_attrs.extend([[np.sin(2*np.pi*self.colors_hsv[color][0]/hues), np.cos(2*np.pi*self.colors_hsv[color][0]/hues), self.colors_hsv[color][1], self.colors_hsv[color][2]]])
             harmony = self.harmony_encoder.transform([getattr(row, 'harmony')])
             norm_attrs.extend(to_categorical(harmony, num_classes=len(self.harmony_encoder.classes_)))
