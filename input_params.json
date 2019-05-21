@@ -1,5 +1,5 @@
 {
-    "exp_name": "2000_256_1e-04_adam_30_.7catweights",
+    "exp_name": "2000_256_1e-04_adam_30",
 
     "train_test_csv_file": "./data/all_domain.csv",
     "img_size": 256,
@@ -22,10 +22,12 @@
         "repetition": 1.0
     }, 
     "categorical_loss_weights": {
-        "pri_color": 0.7,
+        "pri_color": 1.0
+    },
+    "archived_categorical_loss_weights": {
         "harmony": 0.7,
         "style": 0.7
-    },
+    },    
     "colors": {
         "black": [0, 0, 0],   
         "blue": [240, 1, 1],

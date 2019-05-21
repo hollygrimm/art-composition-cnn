@@ -92,13 +92,13 @@ class ResNet50AttrModel(BaseModel):
         # output length of encoded color, 4 values: sin(hue), cos(hue), saturation, value
         outputs.append(Dense(4, activation='sigmoid', name='pri_color')(merged))
 
-        outputs.append(Dense(len(self.harmonies), activation='softmax', name='harmony')(merged))
+        # TODO: Train on harmony and style
+        # outputs.append(Dense(len(self.harmonies), activation='softmax', name='harmony')(merged))
         # TODO: use embedding
         # color_harmony_embedding_size = 10
         # color_harmony_embedding = Embedding(len(self.harmonies) + 1, color_harmony_embedding_size, input_length = 1, name='harmony_emb')(merged)
         # outputs.append(Reshape(target_shape=(1, 1, color_harmony_embedding_size), name='harmony')(color_harmony_embedding))
-
-        outputs.append(Dense(len(self.styles), activation='softmax', name='style')(merged))
+        # outputs.append(Dense(len(self.styles), activation='softmax', name='style')(merged))
 
         non_negative_attrs = []
         for attr in non_negative_attrs:

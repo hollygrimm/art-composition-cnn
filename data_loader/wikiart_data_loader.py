@@ -22,11 +22,12 @@ class WikiArtDataLoader(BaseDataLoader):
 
         self.colors_hsv = config['colors']
 
-        self.harmony_encoder = LabelEncoder()
-        self.harmony_encoder.fit(config['harmonies'])    
+        # TODO: Train on harmony and style
+        # self.harmony_encoder = LabelEncoder()
+        # self.harmony_encoder.fit(config['harmonies'])    
 
-        self.style_encoder = LabelEncoder()
-        self.style_encoder.fit(config['styles'])          
+        # self.style_encoder = LabelEncoder()
+        # self.style_encoder.fit(config['styles'])          
 
         filenames = []
         labels = []
@@ -42,10 +43,13 @@ class WikiArtDataLoader(BaseDataLoader):
             color = getattr(row, 'pri_color')
             hues = 360
             norm_attrs.extend([[np.sin(2*np.pi*self.colors_hsv[color][0]/hues), np.cos(2*np.pi*self.colors_hsv[color][0]/hues), self.colors_hsv[color][1], self.colors_hsv[color][2]]])
-            harmony = self.harmony_encoder.transform([getattr(row, 'harmony')])
-            norm_attrs.extend(to_categorical(harmony, num_classes=len(self.harmony_encoder.classes_)))
-            style = self.style_encoder.transform([getattr(row, 'style')])
-            norm_attrs.extend(to_categorical(style, num_classes=len(self.style_encoder.classes_)))            
+
+            # TODO: Train on harmony and style
+            # harmony = self.harmony_encoder.transform([getattr(row, 'harmony')])
+            # norm_attrs.extend(to_categorical(harmony, num_classes=len(self.harmony_encoder.classes_)))
+
+            # style = self.style_encoder.transform([getattr(row, 'style')])
+            # norm_attrs.extend(to_categorical(style, num_classes=len(self.style_encoder.classes_)))            
 
             if in_train:
                 img_file_path = os.path.join('data/train', new_filename)

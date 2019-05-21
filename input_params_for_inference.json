@@ -1,5 +1,5 @@
 {
-    "exp_name": "2000_256_1e-04_adam_30_.7catweights_infer",
+    "exp_name": "2000_256_1e-04_adam_30_infer",
 
     "train_test_csv_file": "./data/all_domain.csv",
     "img_size": 256,
@@ -7,7 +7,7 @@
     "base_lr": 1e-04, 
     "optimizer": "adam",
 
-    "weights_path": "experiments/2019-05-20/2000_256_1e-04_adam_30_.7catweights/checkpoints/2000_256_1e-04_adam_30_.7catweights-1910-4.73.hdf5",
+    "weights_path": "experiments/2019-05-20/2000_256_1e-04_adam_30_.7catweights/checkpoints/2000_256_1e-04_adam_30_.7catweights-1060-4.36.hdf5",
     "batch_size": 1, 
     "initial_epoch": 0,     
     "nb_epoch": 1,
@@ -22,10 +22,12 @@
         "repetition": 1.0
     }, 
     "categorical_loss_weights": {
-        "pri_color": 0.7,
-        "harmony": 0.7,
-        "style": 0.7 
+        "pri_color": 1.0
     },
+    "archived_categorical_loss_weights": {
+        "harmony": 0.7,
+        "style": 0.7
+    },        
     "colors": {
         "black": [0, 0, 0],   
         "blue": [240, 1, 1],
