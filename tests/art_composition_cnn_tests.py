@@ -6,7 +6,7 @@ from keras.utils import to_categorical
 
 
 sys.path.append('../utils')
-from utils import process_config
+from utils import process_config, calc_degrees
 
 class TestArtCompositionCNN(unittest.TestCase):
 
@@ -55,6 +55,10 @@ class TestArtCompositionCNN(unittest.TestCase):
         self.assertAlmostEqual(np.sin(2*np.pi*colors_hsv[color][0]/360), -0.8660254037844384)
         self.assertAlmostEqual(np.cos(2*np.pi*colors_hsv[color][0]/360), -0.5000000000000004)
         self.assertListEqual(colors_hsv[color], [240, 1, 1])
+
+    def test_calc_degrees(self):
+        degrees = calc_degrees(-.866, -.5)
+        self.assertEqual(round(degrees), 240)
 
 
 if __name__ == '__main__':

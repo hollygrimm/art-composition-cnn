@@ -4,6 +4,7 @@ from keras.callbacks import ModelCheckpoint, TensorBoard
 from base.base_trainer import BaseTrain
 from trainers.wikiart_data_generator import WikiArtDataGenerator
 from sklearn.metrics import classification_report, confusion_matrix
+from utils.utils import calc_degrees
 
 class ResNet50ModelTrainer(BaseTrain):
     def __init__(self, model, data, val_data, config, tensorboard_log_dir, checkpoint_dir):
@@ -93,9 +94,12 @@ class ResNet50ModelTrainer(BaseTrain):
 
             # Actual HSV
             print(self.val_data[1][i][len_numerical_attributes])         
+            print('actual degrees: {0:0.0f}'.format(calc_degrees(self.val_data[1][i][len_numerical_attributes][0], self.val_data[1][i][len_numerical_attributes][1])))
 
             # Predicted HSV
             print(Y_pred[len_numerical_attributes][i])
+            print('pred degrees: {0:0.1f}'.format(calc_degrees(Y_pred[len_numerical_attributes][i][0], Y_pred[len_numerical_attributes][i][1])))
+
 
             print('{0}: {1} pred: {2}\n'.format(list(self.config['categorical_loss_weights'])[1], self.config['harmonies'][np.argmax(self.val_data[1][i][1 + len_numerical_attributes])], self.config['harmonies'][np.argmax(Y_pred[1 + len_numerical_attributes][i])]))
 

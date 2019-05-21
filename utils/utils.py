@@ -3,6 +3,8 @@ import json
 import os
 import time
 
+import numpy as np
+
 def get_args():
     argparser = argparse.ArgumentParser(description=__doc__)
     argparser.add_argument(
@@ -52,3 +54,21 @@ def create_dirs(dirs):
     except Exception as err:
         print("Creating directories error: {0}".format(err))
     exit(-1)
+
+def calc_degrees(sin, cos):
+    if cos == 0:
+        cos = 0.0000000001
+
+    if cos >= 0:
+        rad = np.arctan(sin/cos)
+    else:
+        if sin >= 0:
+            rad = np.arctan(sin/cos) + np.pi
+        else:
+            rad = np.arctan(sin/cos) - np.pi
+
+    degrees = rad * 180/np.pi
+
+    if degrees < 0:
+        degrees = 360 + degrees
+    return degrees
